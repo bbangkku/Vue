@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div v-for="num of oddNumbers">
+      <p>{{num}}</p>
+    </div>
+    <!-- <div v-for="num of nums">
+      <div v-if="num % 2 == 1">
+      <p>{{num}}</p>
+      </div>
+    </div> -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        nums : [1, 2, 3, 4, 5, 6]
+      },
+      // 계산된 속성
+      // 내가 가진 데이터 중 원하는 것만 출력하고 싶을 때 사용
+      computed:{
+        oddNumbers(){
+          // return this.nums.filter((element) => {
+          //   return element % 2 === 1
+          // })
+          // 화살표 함수가 return 을 포함한 한 줄의 표현식일 경우
+          // 아래와 같이 축약 가능
+          // return this.nums.filter((nums) => nums % 2 === 1)
+          return this.nums.filter((nums) => nums % 2) // true니까
+
+        }
+      }
+    })
+  </script>
+</body>
+</html>
