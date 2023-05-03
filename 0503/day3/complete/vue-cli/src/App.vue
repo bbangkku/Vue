@@ -1,27 +1,25 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <MyComponent />
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <HomeView/>
     <!-- 3. 사용한다. -->
+    <MyComponent /> 
+    <MyComponent /> 
+    <MyComponent /> 
+    <HelloWorld msg="반가워 vue.... 잘해보자 만반잘부"/>
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import MyComponent from './components/MyComponent.vue'; // 1. 불러온다
-import HomeView from './views/HomeView.vue';
+import MyComponent from '@/components/MyComponent' // 1. 불러온다
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    MyComponent,
-    HomeView,
-
-
-  } // 2. 등록한다
+    MyComponent, // 2. 등록한다.
+  }
 }
 </script>
 
