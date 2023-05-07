@@ -1,0 +1,282 @@
+4 27
+
+shouldShowUsers
+<div v-if="shouldShowUsers">
+- if 문이 true일때만 보여주고 false일 때 숨김	
+
+- Array, Object의 내부 요소 변경을 감지를 위해서는 deep 속성 추가 필요
+
+--------------------------------------------------------------
+
+AJAX - 자바스크립트를 사용한 비동기통신, 클라이언트와 서버간에 XML 데이터를 주고받는 기술
+
+SSR 방식.. > Server Side Rendering > 전달받은 새 문서를 보여주기 위해 새로고침을 진행
+CSR 방식.. > Client Side Rendering > 최초 한장의 HTML을 받아오는 것은 동일
+- 단 server로부터 최초로 받아오는 문서는 빈 HTML 문서임..
+- 각 요청에 대한 대응을 js를 사용하여 필요한 부분만 다시 렌더링
+- BE,FE 작업 영역을 구분해서 협업이 용이해짐
+---- 다 좋은건 아니었음,, 최초 작동시 까지 오랜시간이 소요됨
+
+## Vue 없이 코드작성.
+1. input tag선택 > p 태그 선택 > addEventListener 추가
+## Vue 사용
+1. CDN 가져와야함 > 콘텐츠 전송 네트워크( Content Delivery Network )
+> 데이터 사용량이 많은 애플리케이션의 웹 페이즈 로드 속도를 높이는 상호 연결된 서버 네트워크
+
+## MVVM 패턴
+View - 우리 눈에 보이는 부분 (DOM)
+Model - 실제 데이터 (JSON)
+View Model(Vue)
+- View를 위한 Model
+
+즉 , View는 Model을 모르고 Model도 View를 모름.
+> (독립성 증가, 적은 의존성)
+
+## Vue Instance
+### el (element) 
+> vue instance와 dom를 연결하는 옵션
+	> 뷰와 모델을 연결.
+### data
+> vue instance의 데이터 객체 반드시 {} 로 작성
+{{}} 로 view에 렌더링 가능
+
+### methods
+> method를 호출하여 data 변경 가능
+data에서 메시지:병국 했다가 methods에서 함수와 함께 this.message="병국ㅎ2" 하면 병국 ㅎ2 로됨
+
+#### 메서드를 정의할때 arrow function은 안됨 !!!
+arrow function은 this 함수가 선언될 때 상위스코프를 가리킴, window를 가리킴.. > 호출은 문제없이 가능하나 this로 vue의 data를 변경하지 못함
+--------------------------------------------------------------
+2일차
+
+v-show
+> 표현식 결과와 관계없이 렌더링됨
+>> 초기비용이 높을 수 있음
+
+v-if
+> 표현식결과가 false인 경우 렌더링조차 안됨
+>> 초기비용이 v-show보다 낮을 수있음
+> 표현식 값이 자주 변경되는 경우 잦은 재 렌더링으로 비용 증가할 수 있음
+
+v-on
+> `:`을 통해 전달받은 인자 확인.. v-on:click > 
+클릭 할때 @@ 해라 "number++"
+ex) v-on:keyup.enter > 엔터를 눌렀을때 실행할 함수 지정
+@keyup.enter 하면 같음
+
+v-bind
+- vue data를 연결하는거임 !! 
+ex) <a v-bind:href:"url"> go to url </a>
+data: { url: www.naver.com }
+:href 로 축약가능
+
+v-model
+- 양방향 바인딩
+data 변경시 v-model로 연결된 사용자 입력 element에도 적용
+
+computed
+- methods는 각각 실행해주는 반면
+> 호출될 때마다 함수를 실행
+> 같은 결과도 매번 새롭게 계산
+computed는 한번에해주는 것 같음 ( 함수를 재호출하는 것이 아니고 계산된 값을 반환함)
+> 종속 대상이 변하지 않으면 항상 저장된 값을 반환
+
+watch
+(순서)
+1. watch 객체 정의 > 감시할 data 지정 > data 변할 시 실행할 함수 정의
+
+- Array, Object의 내부 요소 변경을 감지를 위해서는 deep 속성 추가 필요
+
+filters
+| << (파이프)표시
+
+v-for와 v-if 같이 쓰지말자..
+- v-for가 v-if 보다 우선순위가 높음 
+> user의 일부분만 보고 싶은데 v-for 때문에 모든 user에 대해 반복함 그래서 key값을 쓰자
+
+
+--------------------------------------------------------------
+3일차
+
+컴포넌트
+- UI를 독립적이고 재사용 가능한 조각들로 나눈 것
+ > 즉, 기능별로 분화한 코드 조각
+
+>> 컴포넌트는 유지보수를 쉽게 만들어주고, 재사용성의 측면에서도 매우 강력한 기능을 제공
+
+vue에서 말하는 component란 ? 
+- 이름이 있는 재사용 가능한 Vue instance
+Vue instance란 ?
+- new Vue()로 만든 인스턴스
+- HTML, CSS, JS를 한번에 관리
+@ 는 src의 축약 > source, 주로 url
+
+import로 불러오고 , > components에 등록하고
+> template, 즉, div에 보여주고 <MyComponent/>
+--------------------------------------------------------------
+4일차
+
+부모 > 자식
+props
+이때 속성의 키 값은 kebab-case 사용
+ex) prop-data-name="value"
+props:{msg:String} > type과 함께 명시
+
+- Dynamic Props 
+> 변수를 props로 전달
+부모 컴포넌트의 데이터가 업뎃되면 자식 컴포넌트로 전달되는 데이터도 업뎃됨
+ex) :my-props="dynamicProps" 는 
+앞의 key값 이란 이름으로.. 뒤의 "" 안에 오는 데이터를 전달하겠다는 뜻
+
+즉kebab으로 썼으니까  부모 > 자식인데
+자식컴포넌트에서 dynamicProps로 데이터를 받는거임
+
+부모 > 자식은 단방향 바인딩을 형성
+
+자식 > 부모
+emit Event
+camelCase로
+1. 데이터를 이벤트 리스너의 콜백함수의 인자로 전달
+2. 상위 컴포넌트는 해당 이벤트를 통해 데이터를 받음
+$emit('event-name') 형식으로 사용
+> 부모 컴포넌트에 event-name이라는 이벤트가 발생했다는 것을 알림 > 
+
+순서 !!!
+1. 버튼만들고 클릭 이벤트 추가 > methods에 함수 추가하면서 $emit 이런거 있다고 알림 > emit된 이벤트를 상위 컴포넌트 템플릿에 적어놓고 >> methods에 핸들러함수  실행
+
+LifeCycle Hooks 일단 참고
+
+created
+mounted
+updated
+--------------------------------------------------------------
+5일차
+
+상태관리
+- 현재에 대한 정보
+상태표현은어떻게 ? 데이터로 !
+여러 개의 component가 같은 상태 를 유지할 필요가 있음
+
+- 중앙 저장소에 데이터를 모아서 상태 관리 ( Centralized Store)
+> 그게 Vuex
+
+state 
+- 중앙에서 관리하는 모든 상태정보
+
+mutations
+- 실제로 state를 변경하는 유일한 방법
+> 반드시 동기적이어야함
+> 첫번째인자는 state, 두번째인자는 payload 즉 message
+actions
+- mutations와 비슷하지만 비동기작업을 포함할 수 있음
+> state를 직접 변경하지않고 commit() 메서드로 mutations를 호출해서 state를 변경함
+> 첫번째 인자는 context, .두번째인자는 payload
+
+
+getters
+- computed와 마찬가지로 getters의 결과는 캐시되어, 변경된 경우에만 재계산됨
+
+데이터 조작 흐름
+component > (Actions) > mutations > state 
+
+데이터 사용 흐름
+state > (getters) > component
+
+dispatch(A,B) >> 
+A : 호출하고자하는 ACTIONs 함수
+b : 넘겨주는 데이터(payload)
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
+객체 방식으로 개발
+  요소 선택 방법
+- v-bind 를 이용해서 img 태그의 src 속성에 데이터를 연결할 수도있음.
+  데이터 및 메소드 정의 방법
+- data 속성은 Vue 인스턴스에서 사용할 메서드를 정의
+
+  
+바인딩
+  바인딩의 개념
+- data와 view를 연결하는 기능
+
+  단방향 바인딩 방법 + 축약 방법
+- data가 뷰로만 전달되는 방식 >> v-bind: 를 : 로 쓸 수 있음
+  양방향 바인딩 방법
+- v-model 디렉티브를 사용하여 구현 (input) 
+- 사용자가 input 요소 값을 입력하면 message 데이터 모델의 값도 자동으로 변경됨
+  클래스 바인딩 방법
+-  클래스를 동적으로 추가하거나 제거할 수 있는 방법
+- v-bind 로 구현
+<div v-bind:class="{ active: isActive }"></div>
+isActive 값이 true이면 active 클래스가 동적으로 추가됨
+
+
+
+옵션
+  computed 의 개념
+- 데이터의 연산 및 계산을 수행하기 위해 사용하는 옵션 > 계산된 속성을 정의하는데 사용됨
+  watch 의 개념
+- 데이터의 변경을 감지하고, 그에 따른 처리를 수행하기 위해 사용하는 옵션
+- 데이터가 변경될 때마다 콜백 함수를 실행 > 비동기처리나 복잡한 계산 등을 수행하는 데 유용
+
+디렉티브
+  v-if 사용법 ( + v-else 사용 방법 )
+- 참일 경우에만 요소를 렌더링,, else를 v-if 가 거짓일 때 실행됨
+  v-show 사용법
+- 요소를 숨기는 것이 아니라 CSS display속성을 이용하여 요소를 보여주거나 숨김
+
+  v-if vs v-show 차이
+- v-if와의 차이점은 조건식이 거짓일때, v-if는 요소를 삭제하지만.. v-show는 CSS display속성을 이용하여 숨김 처리함..
+- 따라서 v-if는 초기 렌더링속도가 느리지만, 메모리 절약가능.
+v-show는 초기 렌더링 속도는 빠르지만,, 요소가 자주 변경될 경우 성능이 저하됨
+
+
+  v-for 사용법 ( index 출력하는 법, key 란 )
+- v-for = "(item index) in items와 같이 사용
+- key는 각 항목을 구분하기 위해 사용되는 고유 식별자
+   - key를 사용하지 않으면 리스트의 순서가 변경될 때 vue가 리스트를 다시 렌더링하므로 성능이 저하됨
+
+  v-bind, v-on 축약 표현
+
+컴포넌트 기반 개발
+  컴포넌트의 개념
+- 화면의 특정 영역을 독립적으로 구성할 수 있는 재사용 가능한 모듈
+  data 정의 방법
+- 컴포넌트 내부에서만 사용되는데이터를 정의할 때 사용됨
+  
+import MyComponent from '@/components/MyComponent'
+  - @의 의미 : src 입니다
+-- @ 는 src 디렉토리를 나타잼
+
+vue-cli
+  프로젝트 생성 명령어 
+- vue create <프로젝트 이름>
+  프로젝트에 특정 패키지(vuex) 를 추가하는 명령어
+- npm install vuex @@@
+컴포넌트 간 데이터 전달
+  자식 컴포넌트를 부모 컴포넌트에서 import, 등록하는 방법
+  부모 -> 자식 방법
+- props 사용
+  자식 -> 부모 방법
+- emit 사용
+  
+Vuex 개념
+- 뷰 애플리케이션의 상태 관리를 위한 공식 라이브러리
+   - 중앙 집중식 store를 통해 앱의 모든 컴포넌트에서 공유하는 상태를 관리
+     - 상태를 변경하는 것은 mutations을 이용하여 변경
+        - state(상태)를 가져오기 위해 getter를 이용
+	- getter는 store의 상태를 계산한 값을 반환하는 함수
+	   - state(상태)변경에 따라 컴포넌트에서 UI를 갱신하기 위해서는 action 을 이용
+- action또는 mutation을 실행하기 위해 dispatch를 이용
+- dispatch는 액션을 실행시키는 메서드
+
+  각 단계의 역할
+
+
+
+
+
+
+
+
