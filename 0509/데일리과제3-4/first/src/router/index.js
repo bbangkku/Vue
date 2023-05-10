@@ -6,7 +6,6 @@ import Second from '../views/Second.vue'
 Vue.use(VueRouter)
 
 const routes = [
-
   {
     path: '/first',
     name: 'First',
